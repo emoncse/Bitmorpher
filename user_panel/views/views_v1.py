@@ -5,6 +5,7 @@ from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 from user_panel.models import CustomUser
 from user_panel.serializers.serializers_v1 import UserSerializer
 from user_panel.permissions.permission_v1 import IsManager, IsCustomer
+from rest_framework.exceptions import PermissionDenied
 
 
 @extend_schema(tags=['User Management'])
@@ -16,13 +17,11 @@ class UserViewSet(viewsets.ModelViewSet):
     lookup_field = 'username'
 
     def get_permissions(self):
-        if self.action in ['create', 'update', 'destroy', 'list', 'retrieve']:
-            user = CustomUser.objects.filter(username=self.request.user).first()
-            if user.user_type == 'manager':
-                permission_classes = [IsAuthenticated, IsManager]
-            else:
-                permission_classes = [IsAuthenticated, IsCustomer]
-        return [permission() for permission in permission_classes]
+        if self.action in ['create', 'list', 'retrieve', 'update', 'destroy']:
+            return [IsAuthenticated(), IsManager()]
+        if self.action in ['list', 'retrieve']:
+            return [IsAuthenticated(), IsCustomer()]
+        return [IsAuthenticated(), IsManager()]
 
     def validate_authentication_token(self, request):
         authentication_token = request.data.get('authentication_token')
