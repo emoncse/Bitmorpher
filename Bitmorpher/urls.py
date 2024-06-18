@@ -19,13 +19,17 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
 
 urlpatterns = [
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('API/', include('user_panel.urls.urls_v1')),
     path('admin/', admin.site.urls),
-    path('v1/api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('v1/api/docs/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger'),
-    path('v1/api/docs/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path('v1/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('v1/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger'),
+    path('v1/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
 
 urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
