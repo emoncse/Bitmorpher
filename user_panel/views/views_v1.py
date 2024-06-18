@@ -28,7 +28,7 @@ class UserViewSet(viewsets.ModelViewSet):
         authentication_token = request.data.get('authentication_token')
         if not authentication_token:
             return Response({'error': 'Authentication token is required'}, status=status.HTTP_400_BAD_REQUEST)
-        user = CustomUser.objects.filter(authentication_token=authentication_token).first()
+        user = CustomUser.objects.filter(username=request.user, authentication_token=authentication_token).first()
         if not user:
             return Response({'error': 'Invalid authentication token'}, status=status.HTTP_400_BAD_REQUEST)
         return None
