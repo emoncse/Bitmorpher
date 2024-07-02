@@ -7,5 +7,6 @@ router.register(r'users', UserViewSet, basename='users')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('get-authentication-token/', UserViewSet.as_view({'get': 'get_authentication_token'}), name='get-authentication-token'),
 ]
 
