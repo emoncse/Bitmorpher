@@ -125,8 +125,13 @@ SPECTACULAR_SETTINGS = {
 - Create User: `POST /API/users/`
 - Get User by Username: `GET /API/users/{username}/`
 - Update User by Username: `PUT /API/users/{username}/`
+      - must send authorization token in request body
 - Partially Update User by Username: `PATCH /API/users/{username}/`
+      - must send authorization token in request body
 - Delete User by Username: `DELETE /API/users/{username}/`
+        - must send authorization token in request body
+- Get All Log: `GET /API/logs/`
+- Get Log by id: `GET /API/logs/{id}`
 
 ## Swagger API Documentation
 
