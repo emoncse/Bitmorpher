@@ -67,6 +67,36 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
+
+## Docker Installation
+
+### Prerequisites
+1. Docker
+2. Docker Compose
+3. Git
+
+### Steps
+1. Clone the repository:
+```sh 
+git clone `https://github.com/emoncse/Bitmorpher.git`
+````
+
+2. Change directory to the project folder:
+```sh
+cd Bitmorpher
+```
+
+3. Build the Docker image and Run the Docker container:
+```sh
+docker compose up --build
+```
+
+4. Run the Docker container in the background:
+```sh
+docker compose up -d
+```
+
+
 ## Setup
 
 ### Settings

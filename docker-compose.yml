@@ -1,0 +1,16 @@
+services:
+  app:
+    container_name: bitmorpher_dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+
+    volumes:
+      - './media:/code/media:rw'
+      - '/var/log/bitmorpher/logs:/code/logs:rw'
+      - '/srv/www/bitmorpher/static:/srv/www/bitmorpher/static:rwx'
+      - '/srv/www/bitmorpher/media:/srv/www/bitmorpher/media:rwx'
+
+    ports:
+      - "8000:8000"
