@@ -66,7 +66,7 @@ class UserViewSet(viewsets.ModelViewSet):
         # auth_error = self.validate_authentication_token(request)
         # if auth_error:
         #     return auth_error
-        print("Hello List API")
+
         user_type = request.query_params.get('user_type')
         queryset = self.filter_queryset(self.get_queryset())
         if user_type:
@@ -75,9 +75,9 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     def retrieve(self, request, *args, **kwargs):
-        auth_error = self.validate_authentication_token(request)
-        if auth_error:
-            return auth_error
+        # auth_error = self.validate_authentication_token(request)
+        # if auth_error:
+        #     return auth_error
 
         instance = self.get_object()
         serializer = self.get_serializer(instance)
@@ -102,3 +102,7 @@ class UserViewSet(viewsets.ModelViewSet):
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def get_authentication_token(self, request, *args, **kwargs):
+        authentication_token = CustomUser.objects.get(username=request.user).authentication_token
+        return Response({'authentication_token': authentication_token})
