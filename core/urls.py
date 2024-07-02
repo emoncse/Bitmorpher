@@ -32,7 +32,7 @@ urlpatterns = [
     path('v1/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('v1/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger'),
     path('v1/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-    path('v1/', include('log_space.urls.urls_v1')),
+    path('API/', include('log_space.urls.urls_v1')),
 ]
 
 urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
